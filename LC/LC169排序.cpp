@@ -6,3 +6,17 @@ int majorityElement(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         return nums[n];
     }
+
+
+
+
+int main(){
+
+int* p=new int(10);
+delete p;
+
+int* q=new int[10];
+delete[] q;
+
+
+}
