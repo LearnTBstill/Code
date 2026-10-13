@@ -9,6 +9,103 @@ using namespace std;
 
 
 
+// class cube{
+//     public:
+//     void seth(int h){
+//         height=h;
+//     }
+//     void setl(int l){
+//         length=l;
+//     }
+//     void setw(int w){
+//         width=w;
+//     }
+//     int geth(){
+//         return height;
+//     }
+//     int getw(){
+//         return width;
+//     }
+//     int getl(){
+//         return length;
+//     }
+//     int volume(){
+//         return height*length*width;
+//     }
+//     int surface(){
+//         return (height*length+height*width+width*length)*2;
+//     }
+
+//     bool equit(cube& c){
+//         return c.height==height&&c.width==width&&c.length==length;
+//     }
+
+//     private:
+//     int height=0;
+//     int length=0;
+//     int width=0;
+// };
+
+// bool equit(cube& c1,cube& c2){//别用值传递开销太大了
+//     return c1.geth()==c2.geth()&&c1.getw()==c2.getw()&&c1.getl()==c2.getl();
+// }
+
+// int main(){
+//     cube c1,c2;
+//     c1.seth(10);c2.seth(5);
+//     c1.setw(10);c2.setw(10);
+//     c1.setl(10);c2.setl(10);
+//     cout<<"c1周长为:"<<c1.surface()<<endl;
+//     cout<<"c1面积为:"<<c1.volume()<<endl;
+
+//     //在全局函数判断cube是否相等
+//     if(equit(c1,c2)){
+//         cout<<"全局函数判断为相等"<<endl;
+//     }
+//     else{
+//         cout<<"全局函数判断为不相等"<<endl;
+//     }
+
+//     //在成员函数判断cube是否相等
+//     if(c1.equit(c2)){
+//         cout<<"成员函数判断为相等"<<endl;
+//     }
+//     else{
+//         cout<<"成员函数判断为不相等"<<endl;
+//     }
+    
+//     system("pause");
+//     system("cls");
+// }
+
+
+
+
+// //成员属性设置私有
+// class person{
+//     public:
+//     string getname(){//可以实现对name读
+//         return name;
+//     }
+//     void setage(int Age){//可以实现对age写
+//         age=Age;
+//     }
+//     private:
+//     string name="aaa";//记得初始化，不然读乱码了
+//     int age=20;
+// };
+
+// int main(){
+//     person p1;
+//     cout<<p1.getname()<<endl;
+//     p1.setage(15);
+//     cout<<p1.getage()<<endl;//不可读
+// }
+
+
+
+
+
 // class privilege{
 //     public:
 //     string name="zzz";
