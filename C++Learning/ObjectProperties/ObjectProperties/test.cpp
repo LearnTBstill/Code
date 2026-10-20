@@ -2,39 +2,107 @@
 #include<string>
 using namespace std;
 
-//类对象作为类的成员
-class Phone{
-    public:
-    Phone(string n){
-        num=n;
-        cout<<"Phone构造"<<endl;
-    }
-    ~Phone(){
-        cout<<"Phone析构"<<endl;
-    }
-    string num;
-};
-class Person{
-    public:
-    //Phone p=pnum;隐式转换法的初始化，Phone的构造函数是有参
-    Person(string n,string pnum):name(n),p(pnum){
-        cout<<"Person构造"<<endl;
-    }
-    ~Person(){
-        cout<<"Person析构"<<endl;
-    }
-    string name;
-    Phone p;
-};
 
-void test(){
-    Person p1("zkw","131");
-}
 
-int main(){
-    test();
-    return 0;
-}
+
+// //静态成员函数
+// class Person{
+//     public:
+//     static void func(){
+//         A=7;//静态成员函数可以访问静态成员变量
+//         B=5;//静态成员函数不可以访问普通成员变量
+//         cout<<"调用静态成员函数"<<endl;
+//     }
+//     static int A;
+//     int B;
+// };
+
+// int Person::A=5;
+
+// void test(){
+//     //可以用对象访问
+//     Person p;
+//     p.func();
+//     //也是可以用类名访问，因为所有对象共享同一个函数
+//     Person::func();
+// }
+
+// int main(){
+//     test();
+//     return 0;
+// }
+
+
+
+
+// //静态成员变量
+// class Person{
+//     public:
+//     static int A;//类内声明
+    
+//     //静态成员变量也是有访问权限的
+//     private:
+//     static int B;
+// };
+
+// int Person::A=5;//类外初始化
+// int Person::B=9;//私有也要初始化
+
+// void test1(){
+//     Person p1;
+//     cout<<p1.A<<endl;//5
+//     Person p2;
+//     p2.A=10;
+//     cout<<p1.A<<endl;//10
+//     //而且可以通过类名来访问它
+//     cout<<Person::A<<endl;//10
+//     cout<<Person::B<<endl;//私有的访问不了
+// }
+
+// int main(){
+//     test1();
+//     return 0;
+// }
+
+
+
+
+
+
+
+// //类对象作为类的成员
+// class Phone{
+//     public:
+//     Phone(string n){
+//         num=n;
+//         cout<<"Phone构造"<<endl;
+//     }
+//     ~Phone(){
+//         cout<<"Phone析构"<<endl;
+//     }
+//     string num;
+// };
+// class Person{
+//     public:
+//     //Phone p=pnum;隐式转换法的初始化，Phone的构造函数是有参
+//     Person(string n,string pnum):name(n),p(pnum){
+//         cout<<"Person构造"<<endl;
+//     }
+//     ~Person(){
+//         cout<<"Person析构"<<endl;
+//     }
+//     string name;
+//     Phone p;
+// };
+
+// void test(){
+//     Person p1("zkw","131");
+// }
+
+// int main(){
+//     test();
+//     return 0;
+// }
 
 
 
