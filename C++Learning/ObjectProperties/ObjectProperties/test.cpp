@@ -2,6 +2,69 @@
 #include<string>
 using namespace std;
 
+//this指针 
+class Person{
+    public:
+    Person(int age){
+        //this指向 被调用的成员函数 所属的对象
+        this->age=age;//age=age的话没法分辨是哪个
+    }
+    int age;
+    Person& PersonADD(Person& p){//用引用返回其本体
+        this->age+=p.age;
+        return *this;//指向p1本体
+    }
+};
+
+//解决名称冲突
+void test1(){
+    Person p1(20);
+}
+
+//返回对象用*this
+void test2(){
+    Person p1(10);
+    Person p2(5);
+    p1.PersonADD(p2).PersonADD(p2).PersonADD(p2);//如果PersonADD(p2)返回值是p1,不就可以实现x.x.x.x,多次加
+    cout<<p1.age<<endl;//25
+}
+
+int main(){
+    test2();
+    return 0;
+}
+// class Human{//大小为4
+//     public:
+//     static int A;//静态成员变量,不属于类的对象
+//     int B;
+//     void test(){//非静态成员函数，不属于类的对象
+        
+//     }
+//     static void test2(){//静态成员函数，不属于类的对象
+
+//     }
+// };
+
+// int Human::A=5;
+
+// class Person{//空对象
+
+// };
+
+// void test1(){
+//     Person p1;
+//     //编译器会给每个空对象分配1B，他们有自己的地址，用于区分
+//     cout<<sizeof(p1)<<endl;//1
+// }
+
+// int main(){
+//     test1();
+//     return 0;
+// }
+
+
+
+
 
 
 
