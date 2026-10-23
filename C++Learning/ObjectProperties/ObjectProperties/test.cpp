@@ -2,37 +2,91 @@
 #include<string>
 using namespace std;
 
-//this指针 
+//const修饰成员函数
 class Person{
     public:
-    Person(int age){
-        //this指向 被调用的成员函数 所属的对象
-        this->age=age;//age=age的话没法分辨是哪个
+
+    //常函数
+    //在成员函数后const，就是修改this，让this指针指向的值也不可改了
+    void test1()const{
+        A=10;//默认是this.A
+        this=NULL;//不能修改指向
+        B=10;//mutable
     }
-    int age;
-    Person& PersonADD(Person& p){//用引用返回其本体
-        this->age+=p.age;
-        return *this;//指向p1本体
-    }
+
+    //mutable关键字
+    mutable int B;//即使在常里也可以修改  
+
+    void test11(){}
+    int A;
 };
 
-//解决名称冲突
-void test1(){
-    Person p1(20);
+int test2(){
+    //常对象
+    const Person p;
+    p.A=5;//const
+    p.B=10;//mutable
+
+    p.test1();//常对象只能调用常函数
+    p.test11();//如果能调用普通成员函数，不就侧面打破了不能修改值的规定
 }
 
-//返回对象用*this
-void test2(){
-    Person p1(10);
-    Person p2(5);
-    p1.PersonADD(p2).PersonADD(p2).PersonADD(p2);//如果PersonADD(p2)返回值是p1,不就可以实现x.x.x.x,多次加
-    cout<<p1.age<<endl;//25
-}
 
-int main(){
-    test2();
-    return 0;
-}
+
+
+// //空指针访问成员函数
+// class Person{
+//   public:
+//   void test1(){//不会报错
+//     cout<<"调用1"<<endl;
+//   }
+//   void test2(){//会报错
+//     //if(this==NULL){return;}增加鲁棒性
+//     cout<<A<<endl;//默认是this->A,传入的指针是NULL
+//   }
+//   int A;  
+// };
+
+// int main(){
+//     Person *p=NULL;
+//     p->test1();
+//     p->test2();
+//     return 0;
+// }
+
+
+
+// //this指针 
+// class Person{
+//     public:
+//     Person(int age){
+//         //this指向 被调用的成员函数 所属的对象
+//         this->age=age;//age=age的话没法分辨是哪个
+//     }
+//     int age;
+//     Person& PersonADD(Person& p){//用引用返回其本体
+//         this->age+=p.age;
+//         return *this;//指向p1本体
+//     }
+// };
+
+// //解决名称冲突
+// void test1(){
+//     Person p1(20);
+// }
+
+// //返回对象用*this
+// void test2(){
+//     Person p1(10);
+//     Person p2(5);
+//     p1.PersonADD(p2).PersonADD(p2).PersonADD(p2);//如果PersonADD(p2)返回值是p1,不就可以实现x.x.x.x,多次加
+//     cout<<p1.age<<endl;//25
+// }
+
+// int main(){
+//     test2();
+//     return 0;
+// }
 // class Human{//大小为4
 //     public:
 //     static int A;//静态成员变量,不属于类的对象
