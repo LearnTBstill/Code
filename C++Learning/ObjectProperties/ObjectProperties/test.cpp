@@ -2,34 +2,63 @@
 #include<string>
 using namespace std;
 
-//const修饰成员函数
-class Person{
+//友元
+class Buildings{
+    friend void visit(Buildings &B);//好朋友，允许访问
     public:
-
-    //常函数
-    //在成员函数后const，就是修改this，让this指针指向的值也不可改了
-    void test1()const{
-        A=10;//默认是this.A
-        this=NULL;//不能修改指向
-        B=10;//mutable
+    Buildings(){
+        sittingroom="客厅";
+        bedroom="卧室";
     }
-
-    //mutable关键字
-    mutable int B;//即使在常里也可以修改  
-
-    void test11(){}
-    int A;
+    string sittingroom;
+    private:
+    string bedroom;
 };
 
-int test2(){
-    //常对象
-    const Person p;
-    p.A=5;//const
-    p.B=10;//mutable
-
-    p.test1();//常对象只能调用常函数
-    p.test11();//如果能调用普通成员函数，不就侧面打破了不能修改值的规定
+void visit(Buildings &B){
+    cout<<"访问客厅："<<B.sittingroom<<endl;
+    cout<<"访问卧室："<<B.bedroom<<endl;//不变成友元的话不能访问私有
 }
+
+void test(){
+    Buildings B;
+    visit(B);
+}
+
+int main(){
+    test();
+    return 0;
+}
+
+
+// //const修饰成员函数
+// class Person{
+//     public:
+
+//     //常函数
+//     //在成员函数后const，就是修改this，让this指针指向的值也不可改了
+//     void test1()const{
+//         A=10;//默认是this.A
+//         this=NULL;//不能修改指向
+//         B=10;//mutable
+//     }
+
+//     //mutable关键字
+//     mutable int B;//即使在常里也可以修改  
+
+//     void test11(){}
+//     int A;
+// };
+
+// int test2(){
+//     //常对象
+//     const Person p;
+//     p.A=5;//const
+//     p.B=10;//mutable
+
+//     p.test1();//常对象只能调用常函数
+//     p.test11();//如果能调用普通成员函数，不就侧面打破了不能修改值的规定
+// }
 
 
 
