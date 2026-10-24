@@ -2,33 +2,142 @@
 #include<string>
 using namespace std;
 
-//友元
-class Buildings{
-    friend void visit(Buildings &B);//好朋友，允许访问
-    public:
-    Buildings(){
-        sittingroom="客厅";
-        bedroom="卧室";
-    }
-    string sittingroom;
-    private:
-    string bedroom;
-};
+//"+"重载
 
-void visit(Buildings &B){
-    cout<<"访问客厅："<<B.sittingroom<<endl;
-    cout<<"访问卧室："<<B.bedroom<<endl;//不变成友元的话不能访问私有
-}
 
-void test(){
-    Buildings B;
-    visit(B);
-}
 
-int main(){
-    test();
-    return 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //成员函数作友元
+// class Building;
+// class Person{
+//     public:
+//     Person();
+//     void visit1();//可以访问Building中私有的
+//     void visit2();//不可以访问Building中私有的
+//     Building *B;
+// };
+// class Building{
+//     friend void Person::visit1();//成员函数作友元
+//     public:
+//     Building();
+//     string sittingroom;
+//     private:
+//     string bedroom;
+// };
+
+// Building::Building(){
+//     sittingroom="客厅";
+//     bedroom="卧室";
+// }
+
+// Person::Person(){
+//     B=new Building;
+// }
+
+// void Person::visit1(){
+//     cout<<"visit1正在访问:"<<B->sittingroom<<endl;
+//     cout<<"visit1正在访问:"<<B->bedroom<<endl;
+// }
+
+// void Person::visit2(){
+//     cout<<"visit2正在访问:"<<B->sittingroom<<endl;
+//     cout<<"visit2正在访问:"<<B->bedroom<<endl;//不是Building的友元，没法访问
+// }
+
+// void test(){
+//     Person p;
+//     p.visit1();
+//     p.visit2();
+// }
+
+// int main(){
+//     test();
+// }
+
+
+// //友元类
+// class Building;
+// class Person{
+//     public:
+//     Person();
+//     void visit();
+//     Building *B;//用指针是因为没定义只声明这个类的话编译器不知道给它分多少内存，而指针大小是固定的  
+// };              //当然后面还是定义了2333
+// class Building{
+//     friend class Person;//类作友元
+//     public:
+//     Building();
+//     string sittingroom;
+//     private:
+//     string bedroom;
+// };
+
+// //类外实现成员函数
+// Building::Building (){
+//     sittingroom="客厅";
+//     bedroom="卧室";
+// }
+
+// Person::Person(){
+//     B=new Building;//指针的话一定要用new在堆区开辟，不然Person()结束后会出现空指针
+// }
+
+// void Person::visit(){
+//     cout<<"Person正在访问:"<<B->sittingroom<<endl;
+//     cout<<"Person正在访问:"<<B->bedroom<<endl;//Person是Building的友元类所以可以访问
+// }
+
+// void test(){
+//     Person p;
+//     p.visit();
+// }
+
+// int main(){
+//     test();
+// }
+
+
+// //友元
+// class Buildings{
+//     friend void visit(Buildings &B);//好朋友，允许访问
+//     public:
+//     Buildings(){
+//         sittingroom="客厅";
+//         bedroom="卧室";
+//     }
+//     string sittingroom;
+//     private:
+//     string bedroom;
+// };
+
+// void visit(Buildings &B){
+//     cout<<"访问客厅："<<B.sittingroom<<endl;
+//     cout<<"访问卧室："<<B.bedroom<<endl;//不变成友元的话不能访问私有
+// }
+
+// void test(){
+//     Buildings B;
+//     visit(B);
+// }
+
+// int main(){
+//     test();
+//     return 0;
+// }
 
 
 // //const修饰成员函数
