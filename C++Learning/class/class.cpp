@@ -2,38 +2,162 @@
 #include<string>
 using namespace std;
 
-//+重载  operator+
-class Person{
+//--重载
+class MyInt{
+    friend ostream& operator<<(ostream& cout,MyInt m);
     public:
-    int A;
-    int B;
-
-    //成员函数重载+
-    Person operator+(Person& p){
-        Person temp;
-        temp.A=this->A+p.A;
-        temp.B=this->B+p.B;
+    MyInt(){
+        A=5;
+    }
+    //--x
+    MyInt& operator--(){
+        this->A--;
+        return *this;    
+    }
+    //x--
+    MyInt operator--(int){
+        MyInt temp=*this;
+        this->A--;
         return temp;
     }
+    private:
+    int A;
 };
 
-//全局函数重载+
-Person operator+(Person& p1,Person& p2){
-    Person temp;
-    temp.A=p1.A+p2.A;
-    temp.B=p1.B+p2.B;
-    return temp;
+ostream& operator<<(ostream& cout,MyInt m){
+    cout<<m.A;
+    return cout;
 }
 
 int main(){
-    Person p1;
-    p1.A=5;p1.B=10;
-    Person p2;
-    p2.A=5;p2.B=10;    /*对于全局函数来说本质是Person p3=operator+(p1,p2)*/
-    Person p3=p1+p2;   /*对于成员函数来说本质是Person p3=p1.operator+(p2)*/
-    cout<<p3.A<<"   "<<p3.B<<endl;//10与20
+    MyInt m;
+    cout<<m--<<endl;//5
+    cout<<m<<endl;//4
+    cout<<--(--m)<<endl;//2
+    cout<<m<<endl;//2
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //++重载        实现自己定义的整型数据
+// class MyInt{
+//     friend ostream& operator<<(ostream& cout,MyInt m);
+//     public:
+//     MyInt(){
+//         A=5;
+//     }
+
+//     //重载前置++
+//     MyInt& operator++(){//引用返回是因为要对同一个数据操作
+//         A++;            //为了实现链式调用所以必须返回MyInt
+//         return *this;
+//     }
+
+//     //重载++后置
+//     MyInt operator++(int){//用占位参数实现函数重载
+//         MyInt temp=*this;
+//         A++;
+//         return temp;
+//     }
+
+//     private:
+//     int A;
+// };
+
+// //重载<<
+// ostream& operator<<(ostream& cout,MyInt m){//这块的m要值传递，因为++后置的重载返回的是值
+//     cout<<m.A;
+//     return cout;
+// }
+
+// int main(){
+//     MyInt m;
+//     cout<<m++<<endl;//5
+//     cout<<m<<endl;//6
+// }
+
+
+
+
+
+
+// //左移运算符重载（也叫流插入运算符(cout)）
+// class Person{
+//     friend ostream& operator<<(ostream& out,Person& p);
+//     public:
+//     Person(int a,int b){
+//         this->A=a;this->B=b;
+//     }
+//     private:
+//     int A;
+//     int B;
+
+//     //成员函数                         不传参数的方式也不行，因为<<是双目运算符
+//     void operator<<(ostream& cout){}//ostream类，这样就是p.operator<<(cout)，简写为p<<cout
+// };
+
+// //只能再全局函数重载<<
+// ostream& operator<<(ostream& out,Person& p){//因为他不允许拷贝，只能有一个，所以绝不允许按值返回或传递
+//     out<<"A="<<p.A<<endl;
+//     out<<"B="<<p.B<<endl;
+//     return out;
+// }
+
+// int main(){
+//     Person p(5,10);
+//     cout<<p<<endl;//要想实现链式调用需要返回一个cout，这样才能cout<<endl
+// }
+
+
+
+
+
+
+
+// //+重载  operator+
+// class Person{
+//     public:
+//     int A;
+//     int B;
+
+//     //成员函数重载+
+//     Person operator+(Person& p){
+//         Person temp;
+//         temp.A=this->A+p.A;
+//         temp.B=this->B+p.B;
+//         return temp;
+//     }
+// };
+
+// //全局函数重载+
+// Person operator+(Person& p1,Person& p2){
+//     Person temp;
+//     temp.A=p1.A+p2.A;
+//     temp.B=p1.B+p2.B;
+//     return temp;
+// }
+
+// int main(){
+//     Person p1;
+//     p1.A=5;p1.B=10;
+//     Person p2;
+//     p2.A=5;p2.B=10;    /*对于全局函数来说本质是Person p3=operator+(p1,p2)*/
+//     Person p3=p1+p2;   /*对于成员函数来说本质是Person p3=p1.operator+(p2)*/
+//     cout<<p3.A<<"   "<<p3.B<<endl;//10与20
+//     return 0;
+// }
 
 
 
