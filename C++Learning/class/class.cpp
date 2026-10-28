@@ -2,52 +2,161 @@
 #include<string>
 using namespace std;
 
-//--重载
-class MyInt{
-    friend ostream& operator<<(ostream& cout,MyInt m);
-    public:
-    MyInt(){
-        A=5;
-    }
-    //--x
-    MyInt& operator--(){
-        this->A--;
-        return *this;    
-    }
-    //x--
-    MyInt operator--(int){
-        MyInt temp=*this;
-        this->A--;
-        return temp;
-    }
-    private:
-    int A;
-};
+// //函数调用运算符()重载          
+// class MyPrint{
+//     public:
+//     void operator()(string p){//重载()实现打印
+//         cout<<p<<endl;
+//     }
+// };
+// void test1(){
+//     MyPrint mp;
+//     mp("Hello");//因为重载后使用方式很像函数调用，所以叫仿函数 
+// }
 
-ostream& operator<<(ostream& cout,MyInt m){
-    cout<<m.A;
-    return cout;
-}
+// class MyAdd{
+//     public:
+//     int operator()(int a,int b){//重载()实现加法
+//         return a+b;
+//     }  
+// };
+// void test2(){
+//     MyAdd md;
+//     cout<<md(5,10)<<endl;
+//     //匿名函数对象来实现
+//     cout<<MyAdd()(5,10)<<endl;
+// }
 
-int main(){
-    MyInt m;
-    cout<<m--<<endl;//5
-    cout<<m<<endl;//4
-    cout<<--(--m)<<endl;//2
-    cout<<m<<endl;//2
-    return 0;
-}
+// int main(){
+//     test1();
+//     test2();
+// }
 
 
 
 
+// //关系运算符重载
+// class Person{
+//     public:
+//     Person(string name,int age){
+//         this->name=name;
+//         this->age=age;
+//     }
+//     //==重载
+//     bool operator==(Person& p){
+//         if(this->name==p.name&&this->age==p.age){
+//             return true;
+//         }
+//         else{
+//             return false;
+//         }
+//     }
+//     string name;
+//     int age;
+// };
+
+// void test(){
+//     Person p1("张三",18);
+//     Person p2("张三",28);
+//     if(p1==p2){
+//         cout<<"p1,p2相等"<<endl;
+//     }
+//     else{
+//         cout<<"p1,p2不相等"<<endl;
+//     }
+// }
+
+// int main(){
+//     test();
+//     return 0;
+// }
 
 
 
 
+// //=重载
+// class Person{
+//     public:
+//     int *A;
+//     Person(int a){
+//         A=new int(a);
+//     }
+//     ~Person(){
+//         if(A!=NULL){
+//             delete(A);
+//         }
+//         return;
+//     }
+//     //赋值重载
+//     Person& operator=(Person& p){
+//         //this.A=p.A;    编译器的浅拷贝
+//         //要先判断是否有属性在堆区，如果有要先释放，不然拷贝之后原本的内存成孤儿了，内存泄漏
+//         if(A!=NULL){
+//             delete(A);
+//             A=NULL;
+//         }
+
+//         //实现深拷贝
+//         A=new int(*p.A);
+
+//         return *this;
+//     }
+// };
+
+// void test(){
+//     Person p1(20);
+//     Person p2(18);
+//     p2=p1;
+//     cout<<*p1.A<<endl;
+//     cout<<*p2.A<<endl;
+
+//     Person p3(15);
+//     *p1.A=*p2.A=*p3.A;//这样写用的是内置的运算符
+//     p1=p2=p3;//返回值必须是Person才能链式赋值
+//     cout<<*p1.A<<"  "<<*p2.A<<"  "<<*p3.A<<endl;
+// } 
+
+// int main(){
+//     test();
+//     return 0;
+// }
 
 
+// //--重载
+// class MyInt{
+//     friend ostream& operator<<(ostream& cout,MyInt m);
+//     public:
+//     MyInt(){
+//         A=5;
+//     }
+//     //--x
+//     MyInt& operator--(){
+//         this->A--;
+//         return *this;    
+//     }
+//     //x--
+//     MyInt operator--(int){
+//         MyInt temp=*this;
+//         this->A--;
+//         return temp;
+//     }
+//     private:
+//     int A;
+// };
 
+// ostream& operator<<(ostream& cout,MyInt m){
+//     cout<<m.A;
+//     return cout;
+// }
+
+// int main(){
+//     MyInt m;
+//     cout<<m--<<endl;//5
+//     cout<<m<<endl;//4
+//     cout<<--(--m)<<endl;//2
+//     cout<<m<<endl;//2
+//     return 0;
+// }
 
 
 
