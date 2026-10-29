@@ -2,6 +2,52 @@
 #include<string>
 using namespace std;
 
+//继承基本语法
+//继承实现页面
+class BasePage{
+    public:
+    void head(){
+        cout<<"首页、公开课、登录、注册......(公共头部)"<<endl;
+    }
+    void footer(){
+        cout<<"帮助中心、服务支持......(公共底部)"<<endl;
+    }
+    void left(){
+        cout<<"Java、Python、C++......(公共分类列表)"<<endl;
+    }
+};
+
+//Java页面
+class Java:public BasePage{//让Java把BP的公共内容都继承过来
+    public:
+    void content(){
+        cout<<"Jave学科视频"<<endl;
+    }
+};
+
+//Python页面
+class Python:public BasePage{
+    public:
+    void content(){
+        cout<<"Python学科视频"<<endl;
+    }
+};
+
+//C++页面
+class CPP:public BasePage{
+    public:
+    void content(){
+        cout<<"CPP学科视频"<<endl;
+    }
+};
+
+
+
+
+
+
+
+
 // //函数调用运算符()重载          
 // class MyPrint{
 //     public:
