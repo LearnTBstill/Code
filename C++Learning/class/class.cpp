@@ -2,47 +2,264 @@
 #include<string>
 using namespace std;
 
-//继承基本语法
-//继承实现页面
-class BasePage{
-    public:
-    void head(){
-        cout<<"首页、公开课、登录、注册......(公共头部)"<<endl;
-    }
-    void footer(){
-        cout<<"帮助中心、服务支持......(公共底部)"<<endl;
-    }
-    void left(){
-        cout<<"Java、Python、C++......(公共分类列表)"<<endl;
-    }
-};
+// //菱形继承
+// class Animal{
+//     public:
+//     int age;
+// };//动物类
 
-//Java页面
-class Java:public BasePage{//让Java把BP的公共内容都继承过来
-    public:
-    void content(){
-        cout<<"Jave学科视频"<<endl;
-    }
-};
+// class Sheep:virtual public Animal{};//羊类
 
-//Python页面
-class Python:public BasePage{
-    public:
-    void content(){
-        cout<<"Python学科视频"<<endl;
-    }
-};
+// class Camel:virtual public Animal{};//驼类
 
-//C++页面
-class CPP:public BasePage{
-    public:
-    void content(){
-        cout<<"CPP学科视频"<<endl;
-    }
-};
+// class Alpacas:public Sheep,public Camel{};//羊驼类
+
+// void test(){//加作用域只可以解决问题1 
+//     Alpacas alp;
+//     alp.Sheep::age=20;   
+//     alp.Camel::age=25;
+//     cout<<"来自羊："<<alp.Sheep::age<<endl;
+//     cout<<"来自驼："<<alp.Camel::age<<endl;//虚继承后结果都是25了
+//     cout<<alp.age<<endl;//虚继承后也可以这样访问了
+// }
+
+// int main(){
+//     test();
+// }
 
 
 
+
+
+// //多继承语法
+// class Father1{
+//     public:
+//     Father1(){
+//         A=100;
+//     }
+//     int A;
+// };
+// class Father2{
+//     public:
+//     Father2(){
+//         A=200;
+//     }
+//     int A;
+// };
+
+// class Son:public Father1,public Father2{
+//     public:
+//     Son(){
+//         A=300;
+//         D=400;
+//     }
+//     int A;
+//     int D;
+// };
+
+// void test(){
+//     Son s;
+//     cout<<sizeof(s)<<endl;//16
+//     //当父类出现同名成员,加作用域区分
+//     cout<<"F1:"<<s.Father1::A<<endl;//100
+//     cout<<"F2:"<<s.Father2::A<<endl;//200
+//     cout<<"F1:"<<s.A<<endl;//300
+// }
+
+// int main(){
+//     test();
+// }
+
+
+
+// //同名静态成员处理
+// class Father{
+//     public:
+//     static int A;
+//     static void func(){
+//         cout<<"Father静态成员成员函数"<<endl;
+//     }
+// };
+// int Father::A=5;//类外声明类内初始化
+
+// class Son:public Father{
+//     public:
+//     static int A;
+//     static void func(){
+//         cout<<"Son静态成员成员函数"<<endl;
+//     }
+// };
+// int Son::A=10;
+
+// void test1(){
+//     //通过对象访问
+//     Son s;
+//     cout<<"Son下的A:"<<s.A<<endl;
+//     cout<<"Father下的A:"<<s.Father::A<<endl;
+//     //通过类名访问（不用创建对象）
+//     cout<<"Son下的A:"<<Son::A<<endl;
+//     cout<<"Father下的A:"<<Father::A<<endl;//这是直接访问了
+//     cout<<"Father下的A:"<<Son::Father::A<<endl;//这是从子类通过类名访问父类
+// }
+
+// void test2(){
+//     //通过对象访问
+//     Son s;
+//     s.func();
+//     s.Father::func();
+//     //通过类名访问（不用创建对象）
+//     Son::func();
+//     Son::Father::func();
+// }
+
+// int main(){
+//     test2();
+// } 
+
+
+
+
+// //继承中同名成员的处理方式
+// class Father{
+//     public:
+//     Father(){
+//         A=100;
+//     }
+//     void func(){
+//         cout<<"父类成员函数"<<endl;
+//     }
+//     void func(int A){
+//         cout<<"父类成员函数"<<endl;
+//     }
+//     int A;
+// };
+
+// class Son:public Father{
+//     public:
+//     Son(){
+//         A=200;
+//     }
+//     void func(){
+//         cout<<"子类成员函数"<<endl;
+//     }
+//     int A;
+// };
+
+// void test(){
+//     Son s;
+//     cout<<"Son下的:"<<s.A<<endl;//如果同名，则访问的是子类的
+//     cout<<"Father下的:"<<s.Father::A<<endl;//如果想通过子类对象访问父类的同名成员，要加作用域
+//     s.func();
+//     s.Father::func();//成员函数也是一样的
+//     s.Father::func(100);
+// }
+
+// int main(){
+//     test();
+// }
+
+
+
+// //父类子类构造与析构顺序
+// class Father{
+//     public:
+//     Father(){
+//         cout<<"父构造"<<endl;
+//     }
+//     ~Father(){
+//         cout<<"父析构"<<endl;
+//     }
+// };
+
+// class Son:public Father{
+//     public:
+//     Son(){
+//         cout<<"子构造"<<endl;
+//     }
+//     ~Son(){
+//         cout<<"子析构"<<endl;
+//     }
+// };
+
+// void test(){
+//     Son s;
+// }
+
+// int main(){
+//     test();
+// }
+
+
+
+// //继承中的对象模型
+// class Father{
+//     public:
+//     int A;
+//     protected:
+//     int B;
+//     private:
+//     int C;
+// };
+
+// class Son1:public Father{
+//     public:
+//     int D;
+// };
+
+// void test1(){//所有非静态成员属性都会被子类继承
+//     Son1 s;
+//     cout<<sizeof(s)<<endl;//16
+// }
+
+// int main(){
+//     test1();
+// }
+
+
+
+
+
+
+
+
+// //继承基本语法
+// //继承实现页面
+// class BasePage{
+//     public:
+//     void head(){
+//         cout<<"首页、公开课、登录、注册......(公共头部)"<<endl;
+//     }
+//     void footer(){
+//         cout<<"帮助中心、服务支持......(公共底部)"<<endl;
+//     }
+//     void left(){
+//         cout<<"Java、Python、C++......(公共分类列表)"<<endl;
+//     }
+// };
+
+// //Java页面
+// class Java:public BasePage{//让Java把BP的公共内容都继承过来
+//     public:
+//     void content(){
+//         cout<<"Jave学科视频"<<endl;
+//     }
+// };
+
+// //Python页面
+// class Python:public BasePage{
+//     public:
+//     void content(){
+//         cout<<"Python学科视频"<<endl;
+//     }
+// };
+
+// //C++页面
+// class CPP:public BasePage{
+//     public:
+//     void content(){
+//         cout<<"CPP学科视频"<<endl;
+//     }
+// };
 
 
 
