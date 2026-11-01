@@ -2,14 +2,111 @@
 #include<string>
 using namespace std;
 
+//虚析构和纯虚析构
+class Animal{
+    public:
+    Animal(){
+        cout<<"Animal构造"<<endl;
+    }
+    /*virtual ~Animal(){//虚析构函数
+        cout<<"Animal析构"<<endl;
+    }*/
+    virtual ~Animal()=0;//纯虚析构函数
+    virtual void speak()=0;
+};
+
+Animal::~Animal(){//类外实现
+    cout<<"Animal纯虚析构"<<endl;
+}
+
+class Cat:public Animal{
+    public:
+    Cat(string name){
+        cout<<"Cat构造"<<endl;
+        this->name=new string(name);
+    }
+    virtual void speak(){
+        cout<<*this->name<<"在猫叫"<<endl;
+    }
+    ~Cat(){//提供对应的析构函数来释放Cat中构造函数开辟的内存空间
+        cout<<"Cat析构"<<endl;
+        if(this->name!=NULL){
+            delete(this->name);
+        }
+    }
+    string* name;
+};
+
+void test(){
+    Animal* A=new Cat("Tom");//父类指针指向子类对象
+    A->speak();
+    delete(A);//父类指针析构时不会调用子类的析构函数，如果子类堆区属性，内存泄漏（没有调用Cat析构）
+}
+
+int main(){
+    test();
+}
 
 
+// //制作饮品
+// class Beverage{
+//     public:
+//     virtual void boil()=0;
+//     virtual void brew()=0;
+//     virtual void pour()=0;
+//     virtual void add()=0;
+//     void make(){
+//         boil();
+//         brew();
+//         pour();
+//         add();
+//     }
+// };
 
+// class coffee:public Beverage{
+//     public:
+//     virtual void boil(){
+//         cout<<"烧农夫山泉"<<endl;
+//     }
+//     virtual void brew(){
+//         cout<<"冲泡咖啡"<<endl;
+//     }
+//     virtual void pour(){
+//         cout<<"倒进咖啡杯"<<endl;
+//     }
+//     virtual void add(){
+//         cout<<"加牛奶和糖"<<endl;
+//     }
+// };
+// class tea:public Beverage{
+//     public:
+//     virtual void boil(){
+//         cout<<"烧百岁山"<<endl;
+//     }
+//     virtual void brew(){
+//         cout<<"冲泡茶叶"<<endl;
+//     }
+//     virtual void pour(){
+//         cout<<"倒进茶杯"<<endl;
+//     }
+//     virtual void add(){
+//         cout<<"加枸杞"<<endl;
+//     }
+// };
 
+// void dowork(Beverage* bev){//父类指针指向子类对象
+//     bev->make();
+//     delete(bev);//记得释放
+// }
+// void test(){
+//     dowork(new coffee);//直接申请传进去      
+//     cout<<"=-=-=-=-=-=-=-=-=-=-=-=-=-==-=--="<<endl;
+//     dowork(new tea);
+// }
 
-
-
-
+// int main(){
+//     test();
+// }
 
 
 
