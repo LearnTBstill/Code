@@ -2,6 +2,109 @@
 #include<string>
 using namespace std;
 
+
+
+
+
+
+
+
+
+
+
+
+// //纯虚函数和抽象类     
+// class Father{
+//     public:
+//     virtual void func()=0;//纯虚函数
+// };//抽象类
+
+// class Son1:public Father{
+//     public:
+//     void func(){}
+// };
+// class Son2:public Father{
+// };
+
+// int main(){
+//     Father f;new Father;
+//     Son1 s;
+//     Son2 s;
+// }
+
+
+
+
+// //计算机类案例体验多态好处
+// class AbstractCalculator{
+//     public:
+//     virtual int cal(){
+//         return 0;
+//     }
+//     int A;
+//     int B;
+// };
+
+// class add:public AbstractCalculator{
+//     public:
+//     int cal(){
+//         return A+B;
+//     }
+// };//加法
+// class sub:public AbstractCalculator{
+//     public:
+//     int cal(){
+//         return A-B;
+//     }
+// };//减法
+
+// int test(){
+//     //加法运算
+//     AbstractCalculator *AC=new add;//父类指针指向子类对象(多态触发条件)
+//     AC->A=5;AC->B=10;
+//     cout<<"加："<<AC->cal()<<endl;
+//     delete(AC);
+//     //减法运算
+//     AC=new sub;
+//     AC->A=5;AC->B=10;
+//     cout<<"减："<<AC->cal()<<endl;
+//     delete(AC);
+// }
+
+// int main(){
+//     test();
+//     return 0;
+// }
+
+
+
+
+// //多态基本语法
+// class Animal{
+//     public:
+//     virtual void speak(){//
+//         cout<<"动物叫"<<endl;
+//     }
+// };
+// class Cat:public Animal{
+//     public:
+//     void speak(){
+//         cout<<"猫叫"<<endl;
+//     }
+// };
+
+// void dospeak(Animal& ani){//地制早绑定
+//     ani.speak();//猫叫 
+// }
+
+// int main(){
+//     Cat c;
+//     dospeak(c);//父类引用接受子类对象 Animal& ani=c;
+// }
+
+
+
+
 // //菱形继承
 // class Animal{
 //     public:
