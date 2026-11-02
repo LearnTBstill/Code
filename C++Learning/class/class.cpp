@@ -2,50 +2,157 @@
 #include<string>
 using namespace std;
 
-//虚析构和纯虚析构
-class Animal{
+//电脑组装案例
+class CPU{
     public:
-    Animal(){
-        cout<<"Animal构造"<<endl;
-    }
-    /*virtual ~Animal(){//虚析构函数
-        cout<<"Animal析构"<<endl;
-    }*/
-    virtual ~Animal()=0;//纯虚析构函数
-    virtual void speak()=0;
+    virtual void calculate()=0;//零件全部是抽象类，让不同厂商实现自己的
+};
+class GPU{
+    public:
+    virtual void display()=0;
+};
+class Memory{
+    public:
+    virtual void storage()=0;
 };
 
-Animal::~Animal(){//类外实现
-    cout<<"Animal纯虚析构"<<endl;
-}
-
-class Cat:public Animal{
+class Computer{
     public:
-    Cat(string name){
-        cout<<"Cat构造"<<endl;
-        this->name=new string(name);
+    Computer(CPU* cpu,GPU* gpu,Memory* mem){
+        this->cpu=cpu;
+        this->gpu=gpu;
+        this->mem=mem;
     }
-    virtual void speak(){
-        cout<<*this->name<<"在猫叫"<<endl;
-    }
-    ~Cat(){//提供对应的析构函数来释放Cat中构造函数开辟的内存空间
-        cout<<"Cat析构"<<endl;
-        if(this->name!=NULL){
-            delete(this->name);
+    virtual ~Computer(){
+        if(this->cpu!=NULL){
+            delete(this->cpu);
+            this->cpu=NULL;
+        }
+        if(this->gpu!=NULL){
+            delete(this->gpu);
+            this->cpu=NULL;
+        }
+        if(this->mem!=NULL){
+            delete(this->mem);
+            this->cpu=NULL;
         }
     }
-    string* name;
+    void Work(){
+        cpu->calculate();
+        gpu->display();
+        mem->storage();
+    }
+    private:
+    CPU* cpu;
+    GPU* gpu;
+    Memory* mem;
 };
 
+//Intel
+class Intel_cpu:public CPU{
+    public:
+    virtual void calculate(){
+        cout<<"Intel的CPU开始工作"<<endl;
+    }
+};
+class Intel_gpu:public GPU{
+    public:
+    virtual void display(){
+        cout<<"Intel的GPU开始工作"<<endl;
+    }
+};
+class Intel_mem:public Memory{
+    public:
+    virtual void storage(){
+        cout<<"Intel的Memory开始工作"<<endl;
+    }
+};
+
+//NVIDIA
+class NVIDIA_cpu:public CPU{
+    public:
+    virtual void calculate(){
+        cout<<"NVIDIA的CPU开始工作"<<endl;
+    }
+};
+class NVIDIA_gpu:public GPU{
+    public:
+    virtual void display(){
+        cout<<"NVIDIA的GPU开始工作"<<endl;
+    }
+};
+class NVIDIA_mem:public Memory{
+    public:
+    virtual void storage(){
+        cout<<"NVIDIA的Memory开始工作"<<endl;
+    }
+};
+
+//开始组装
 void test(){
-    Animal* A=new Cat("Tom");//父类指针指向子类对象
-    A->speak();
-    delete(A);//父类指针析构时不会调用子类的析构函数，如果子类堆区属性，内存泄漏（没有调用Cat析构）
+    Computer *c=new Computer(new Intel_cpu,new NVIDIA_gpu,new Intel_mem);//抽象类不能创建对象，让指针指向子类
+    c->Work();
+    delete(c);
 }
 
 int main(){
     test();
+    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+// //虚析构和纯虚析构
+// class Animal{
+//     public:
+//     Animal(){
+//         cout<<"Animal构造"<<endl;
+//     }
+//     /*virtual ~Animal(){//虚析构函数
+//         cout<<"Animal析构"<<endl;
+//     }*/
+//     virtual ~Animal()=0;//纯虚析构函数
+//     virtual void speak()=0;
+// };
+
+// Animal::~Animal(){//类外实现
+//     cout<<"Animal纯虚析构"<<endl;
+// }
+
+// class Cat:public Animal{
+//     public:
+//     Cat(string name){
+//         cout<<"Cat构造"<<endl;
+//         this->name=new string(name);
+//     }
+//     virtual void speak(){
+//         cout<<*this->name<<"在猫叫"<<endl;
+//     }
+//     ~Cat(){//提供对应的析构函数来释放Cat中构造函数开辟的内存空间
+//         cout<<"Cat析构"<<endl;
+//         if(this->name!=NULL){
+//             delete(this->name);
+//         }
+//     }
+//     string* name;
+// };
+
+// void test(){
+//     Animal* A=new Cat("Tom");//父类指针指向子类对象
+//     A->speak();
+//     delete(A);//父类指针析构时不会调用子类的析构函数，如果子类堆区属性，内存泄漏（没有调用Cat析构）
+// }
+
+// int main(){
+//     test();
+// }
 
 
 // //制作饮品
