@@ -5,7 +5,9 @@
 #include "Employee.h"
 #include "Manager.h"
 #include "Boss.h"
+#include<fstream>
 using namespace std;
+#define FILENAME "E_list.txt"
 
 class EmployeeManage{
     public:
@@ -23,6 +25,8 @@ class EmployeeManage{
     Worker** workerArray;
     //添加职工
     void addE();
+    //保存文件
+    void fsave();
 };
 
 

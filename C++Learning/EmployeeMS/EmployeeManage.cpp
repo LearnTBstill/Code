@@ -9,7 +9,12 @@ EmployeeManage::EmployeeManage(){
 }
 
 //员工管理的析构函数
-EmployeeManage::~EmployeeManage(){}
+EmployeeManage::~EmployeeManage(){
+    if(this->workerArray!=NULL){
+        delete[] this->workerArray;
+        this->workerArray=NULL;
+    }
+}
 
 //展示菜单
 void EmployeeManage::show_menu(){
@@ -85,6 +90,8 @@ void EmployeeManage::addE(){
         this->workerArray=newarray;
         this->num=newnum;
         cout<<"成功添加"<<i<<"人"<<endl;
+        //保存
+        this->fsave();
     }
     else{
         cout<<"输入有误"<<endl;
@@ -92,4 +99,16 @@ void EmployeeManage::addE(){
     //清屏
     system("pause");
     system("cls");
+}
+
+//保存文件
+void EmployeeManage::fsave(){
+    ofstream ofs;
+    ofs.open(FILENAME,ios::out);
+    for(int i;i<this->num;i++){
+        ofs<<this->workerArray[i]->name<<"   "
+        <<this->workerArray[i]->ID<<"   "
+        <<this->workerArray[i]->department<<"   "<<endl;
+    }
+    ofs.close();   
 }
