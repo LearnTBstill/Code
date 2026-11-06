@@ -1,4 +1,8 @@
 #include "EmployeeManage.h"
+#include "Worker.h"
+#include "Employee.h"
+#include "Manager.h"
+#include "Boss.h"
 #include<iostream>
 using namespace std;
 
@@ -15,6 +19,7 @@ int main(){
                 break;
             }
             case 1:{//增加
+                EM.addE();
                 break;
             }
             case 2:{//显示
@@ -31,7 +36,7 @@ int main(){
             }
             case 6:{//排序
                 break;
-            }
+            }    
             case 7:{//清空
                 break;
             }
@@ -40,7 +45,6 @@ int main(){
                 break;
             }
         }
-        system("pause");
     }
     return 0;
 }

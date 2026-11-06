@@ -6,13 +6,13 @@ Employee::Employee(string name,int ID,int department){
     this->department=department;
 }
 
-void Employee::show_info(){
-    cout<<"名字为："<<this->name
-    <<"\tID为："<<this->ID
-    <<"\t岗位为："<<this->getdepName()
-    <<"\t岗位职责：完成经理交给的任务"<<endl;
+void Employee::show_info(){//\t水平制表符
+    cout<<"姓名："<<this->name
+    <<"\tID："<<this->ID
+    <<"\t岗位："<<this->getdepName()
+    <<"\t职责：完成经理交给的任务"<<endl;
 }
 
 string Employee::getdepName(){
-    return "员工";
+    return string("员工");//直接写的话是const char*，不过编译器可以帮你自动转为string
 }

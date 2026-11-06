@@ -3,7 +3,10 @@
 using namespace std;
 
 //员工管理的构造函数
-EmployeeManage::EmployeeManage(){}
+EmployeeManage::EmployeeManage(){
+    this->num=0; 
+    this->workerArray=NULL;
+}
 
 //员工管理的析构函数
 EmployeeManage::~EmployeeManage(){}
@@ -30,3 +33,63 @@ void EmployeeManage::exit_system(){
     exit(0);//推出并返回0
 }
 
+//添加
+void EmployeeManage::addE(){
+    cout<<"请输入添加职工数量："<<endl;
+    int i=0;
+    cin>>i;
+    if(i>0){
+        //计算新数组人数
+        int newnum=this->num+i;
+        Worker** newarray=new Worker*[newnum];
+        if(this->workerArray!=NULL){
+            for(int j=0;j<this->num;j++){
+                newarray[j]=this->workerArray[j];
+            }
+        }
+        //添加
+        for(int j=0;j<i;j++){
+            int ID;
+            string name;
+            int d;
+            cout<<"请输入第"<<j+1<<"个职工的ID："<<endl;
+            cin>>ID;
+            cout<<"请输入第"<<j+1<<"个职工的name："<<endl;
+            cin>>name;
+            cout<<"请选择该职工岗位："<<endl<<"1.员工"<<endl<<"2.经理"<<endl<<"3.老板"<<endl;
+            cin>>d;
+            Worker* worker=NULL;
+            switch(d){
+                case 1:{
+                    worker=new Employee(name,ID,d);
+                    break;
+                }
+                case 2:{
+                    worker=new Manager(name,ID,d);
+                    break;
+                }
+                case 3:{
+                    worker=new Boss(name,ID,d);
+                    break;
+                }
+                default:{
+                    cout<<"输入错误"<<endl;
+                    break;
+                }
+            }
+            newarray[this->num+j]=worker;
+            // delete(worker);//这里不能delete,不然刚存进去的worker立马被删除了,是会多占用点内存但是是必要开销
+        }
+        //释放原有空间
+        delete[] this->workerArray;
+        this->workerArray=newarray;
+        this->num=newnum;
+        cout<<"成功添加"<<i<<"人"<<endl;
+    }
+    else{
+        cout<<"输入有误"<<endl;
+    }
+    //清屏
+    system("pause");
+    system("cls");
+}

@@ -1,6 +1,10 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include "Worker.h"
+#include "Employee.h"
+#include "Manager.h"
+#include "Boss.h"
 using namespace std;
 
 class EmployeeManage{
@@ -13,20 +17,12 @@ class EmployeeManage{
     void show_menu();
     //退出
     void exit_system(); 
+    //雇员人数
+    int num;
+    //职工数组指针
+    Worker** workerArray;
+    //添加职工
+    void addE();
 };
 
-class Worker{
-    public:
-    //显示个人信息
-    virtual void show_info()=0;
-    //显示岗位
-    virtual string show_depName()=0;
-
-    //职工编号
-    int ID;
-    //职工姓名
-    string name;
-    //职工所在部门编号
-    int department;
-};
 
