@@ -23,12 +23,15 @@ int main(){
                 break;
             }
             case 2:{//ÏÔÊ¾
+                EM.showE();
                 break;
             }
             case 3:{//É¾³ý
+                EM.deleteE();
                 break;
             }
             case 4:{//ÐÞ¸Ä
+                EM.modify();
                 break;
             }
             case 5:{//²éÕÒ

@@ -4,8 +4,42 @@ using namespace std;
 
 //员工管理的构造函数
 EmployeeManage::EmployeeManage(){
-    this->num=0; 
-    this->workerArray=NULL;
+    //三种情况初始化
+    ifstream ifs;
+    ifs.open(FILENAME,ios::in);
+    if(!ifs.is_open()){//文件不存在
+        this->num=0; 
+        this->workerArray=NULL;
+        this->fempty=true;
+        ifs.close();
+        return;
+    }
+    char ch;
+    ifs>>ch;
+    if(ifs.eof()){//文件为空
+        this->num=0; 
+        this->workerArray=NULL;
+        this->fempty=true;
+        ifs.close();
+        return;
+    }
+    //文件存在并且非空
+    int num=this->getfnum();
+    cout<<"职工人数为"<<num<<endl; 
+    this->num=num;
+    //如果关闭了之后再打开文件，就需要在构造函数里面重新申请堆空间
+    //这就是为什么你在"添加"里面new过了还要在构造函数中申请
+    this->workerArray=new Worker*[this->num];//别忘了堆上创建数组
+    this->initE();
+    ifs.close();
+
+    // //test
+    // for(int i=0;i<this->num;i++)
+    // {
+    //     cout<<"姓名："<<this->workerArray[i]->name
+    //     <<"\tID："<<this->workerArray[i]->ID
+    //     <<"\t岗位："<<this->workerArray[i]->department<<endl;
+    // }
 }
 
 //员工管理的析构函数
@@ -35,6 +69,7 @@ void EmployeeManage::show_menu(){
 void EmployeeManage::exit_system(){
     cout<<"欢迎下次使用"<<endl;
     system("pause");
+    system("cls");
     exit(0);//推出并返回0
 }
 
@@ -92,6 +127,7 @@ void EmployeeManage::addE(){
         cout<<"成功添加"<<i<<"人"<<endl;
         //保存
         this->fsave();
+        this->fempty=false;
     }
     else{
         cout<<"输入有误"<<endl;
@@ -111,4 +147,148 @@ void EmployeeManage::fsave(){
         <<this->workerArray[i]->department<<"   "<<endl;
     }
     ofs.close();   
+}
+
+//统计文件中的人数
+int EmployeeManage::getfnum(){
+    ifstream ifs;
+    ifs.open(FILENAME,ios::in);
+    int ID;string name;int department;
+    int num=0;
+    while(ifs>>name&&ifs>>ID&&ifs>>department){
+        num++;
+    }   
+    return num;
+}
+
+//初始化职工
+void EmployeeManage::initE(){
+    ifstream ifs;
+    ifs.open(FILENAME,ios::in);
+    int ID;string name;int d;
+    int i=0;
+    while(ifs>>name>>ID>>d){
+        Worker* w=NULL;
+        if(d==1){
+            w=new Employee(name,ID,d);
+        }
+        else if(d==2){
+            w=new Manager(name,ID,d);
+        }
+        else{
+            w=new Boss(name,ID,d);
+        }
+        this->workerArray[i++]=w;
+    }
+    this->fempty=false;
+    ifs.close();
+}
+
+//显示
+void EmployeeManage::showE(){   
+    if(this->fempty){
+        cout<<"文件为空或不存在！"<<endl;
+        return;
+    }
+    else{
+        for(int i;i<this->num;i++){
+            this->workerArray[i]->show_info();
+        }
+    }
+    system("pause");
+    system("cls"); 
+}
+
+//删除
+void EmployeeManage::deleteE(){
+    if(this->fempty){
+        cout<<"文件不存在或为空"<<endl;
+    }
+    else{
+        cout<<"请输入ID"<<endl;
+        int id=0;
+        cin>>id;
+        int res=searchE(id);
+        if(res==-1){
+            cout<<"未找到"<<endl;
+        }
+        else{
+            Worker* temp=this->workerArray[res];
+            delete(temp);
+            this->workerArray[res]=NULL;//注意不是给temp置NULL
+            for(;res<this->num-1;res++){
+                this->workerArray[res]=this->workerArray[res+1];
+            }
+            this->num--;
+            //别忘了同步到文件中
+            this->fsave();
+            cout<<"删除成功"<<endl;
+        }
+    }
+    system("pause");
+    system("cls");
+}
+
+//查找
+int EmployeeManage::searchE(int ID){
+    int index=-1;
+    for(int i=0;i<this->num;i++){
+        if(this->workerArray[i]->ID==ID){
+            index=i;
+            break;
+        }
+    }
+    return index;
+}
+
+//修改
+void EmployeeManage::modify(){
+    if(this->fempty){
+        cout<<"文件不存在或为空"<<endl;
+    }
+    else{
+        cout<<"请输入修改职工的ID："<<endl;
+        int id=0;
+        cin>>id;
+        int res=this->searchE(id);
+        if(res==-1){
+            cout<<"未找到"<<endl;
+        }
+        else{
+            delete(this->workerArray[res]);
+            cout<<"已找到"<<id<<"号职工"<<endl;
+            int nID;string nname;int nd;
+            cout<<"请输入新的ID："<<endl;
+            cin>>nID;
+            cout<<"请输入新的姓名："<<endl;
+            cin>>nname;
+            cout<<"请输入新的岗位："<<endl;
+            cout<<"1.员工"<<endl<<"2.经理"<<endl<<"3.老板"<<endl;
+            cin>>nd;
+            Worker* w=NULL;
+            switch(nd){
+                case 1:{
+                    w=new Employee(nname,nID,nd);
+                    break;
+                }
+                case 2:{
+                    w=new Manager(nname,nID,nd);
+                    break;
+                }
+                case 3:{
+                    w=new Boss(nname,nID,nd);
+                    break;
+                }
+                default:{
+                    cout<<"输入有误"<<endl;
+                    break;
+                }
+            }
+            this->workerArray[res]=w;
+            cout<<"修改成功"<<endl;
+            this->fsave();
+        }
+        system("pause");
+        system("cls");
+    }
 }

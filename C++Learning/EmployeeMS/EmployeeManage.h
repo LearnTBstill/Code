@@ -27,6 +27,22 @@ class EmployeeManage{
     void addE();
     //保存文件
     void fsave();
+    //读文件
+    void fread();
+    //判断文件空
+    bool fempty;
+    //统计文件中的人数
+    int getfnum();
+    //初始化职工
+    void initE();
+    //显示
+    void showE();
+    //删除
+    void deleteE();
+    //查找
+    int searchE(int ID);
+    //修改
+    void modify();
 };
 
 
