@@ -45,6 +45,10 @@ EmployeeManage::EmployeeManage(){
 //员工管理的析构函数
 EmployeeManage::~EmployeeManage(){
     if(this->workerArray!=NULL){
+        for(int i=0;i<this->num;i++){
+            delete(this->workerArray[i]);
+            this->workerArray[i]=NULL;
+        }
         delete[] this->workerArray;
         this->workerArray=NULL;
     }
@@ -291,4 +295,121 @@ void EmployeeManage::modify(){
         system("pause");
         system("cls");
     }
+}
+
+//按照编号或者姓名查找
+void EmployeeManage::FindE(){
+    if(this->fempty){
+        cout<<"文件为空或者不存在"<<endl;
+    }
+    else{
+        cout<<"请输入查找方式："<<endl;
+        cout<<"1.按照ID查询"<<endl;
+        cout<<"2.按照姓名查询"<<endl;
+        int manner;
+        cin>>manner;
+        switch(manner){
+            case 1:{
+                cout<<"请输入ID："<<endl;
+                int id=0;
+                cin>>id;
+                int res=this->searchE(id);
+                if(res==-1){
+                    cout<<"查无此人"<<endl;
+                }
+                else{
+                    this->workerArray[res]->show_info();
+                }
+                break;
+            }
+            case 2:{
+                string name;
+                int flag=0;
+                cout<<"请输入姓名："<<endl;
+                cin>>name;
+                for(int i=0;i<this->num;i++){
+                    if(this->workerArray[i]->name==name){
+                        this->workerArray[i]->show_info();
+                        flag=1;
+                    }
+                }
+                if(flag==0){
+                    cout<<"查找失败"<<endl;
+                }
+                break;
+            }
+            default:{
+                cout<<"输入有误"<<endl;
+                break;
+            }
+        } 
+    }
+    system("pause");
+    system("cls");
+}
+
+//按照编号排序
+void EmployeeManage::Bubblesort(){
+    if(this->fempty){
+        cout<<"文件空或者不存在"<<endl;
+        system("pause");
+        system("cls");
+    }
+    else{
+        cout<<"请选择排序方式："<<endl;
+        cout<<"1.升序"<<endl;
+        cout<<"2.降序"<<endl;
+        int n=0;
+        cin>>n;
+        for(int i=0;i<this->num;i++){
+            int swap=0;
+            for(int j=this->num-1;j>i;j--){
+                if(n==1){
+                    if(this->workerArray[j]->ID<this->workerArray[j-1]->ID){
+                        Worker* temp=0;
+                        temp=this->workerArray[j];
+                        this->workerArray[j]=this->workerArray[j-1];
+                        this->workerArray[j-1]=temp;
+                        swap=1;
+                    }
+                }
+                else if(n==2){
+                    if(this->workerArray[j]->ID>this->workerArray[j-1]->ID){
+                        Worker* temp=0;
+                        temp=this->workerArray[j];
+                        this->workerArray[j]=this->workerArray[j-1];
+                        this->workerArray[j-1]=temp;
+                        swap=1;
+                    }
+                }
+            }
+            if(swap==0){
+                break;
+            }
+        }
+        this->fsave();
+        this->showE();
+    }
+}
+
+//清空
+void EmployeeManage::clear(){
+    cout<<"确认清空请输入'确认'"<<endl;
+    string temp;
+    cin>>temp;
+    if(temp=="确认"){
+        ofstream ofs(FILENAME,ios::trunc);
+        ofs.close();
+        //就算析构函数有也要在这里写,怕用户清空之后继续添加什么的
+        for(int i=0;i<this->num;i++){
+            delete(this->workerArray[i]);
+            this->workerArray[i]==NULL;
+        }
+        delete[] this->workerArray;
+        this->num=0;
+        this->fempty=true;
+        cout<<"清空成功"<<endl;
+    }
+    system("pause");
+    system("cls");
 }

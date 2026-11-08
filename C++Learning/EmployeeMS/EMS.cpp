@@ -35,12 +35,15 @@ int main(){
                 break;
             }
             case 5:{//≤È’“
+                EM.FindE();
                 break;
             }
             case 6:{//≈≈–Ú
+                EM.Bubblesort();
                 break;
             }    
             case 7:{//«Âø’
+                EM.clear();
                 break;
             }
             default:{

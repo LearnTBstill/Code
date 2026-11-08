@@ -43,6 +43,12 @@ class EmployeeManage{
     int searchE(int ID);
     //ÐÞ¸Ä
     void modify();
+    //²éÕÒ
+    void FindE();
+    //ÅÅÐò
+    void Bubblesort();
+    //Çå¿Õ
+    void clear();
 };
 
 
