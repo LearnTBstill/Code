@@ -117,8 +117,9 @@ void EmployeeManage::addE(){
                     break;
                 }
                 default:{
-                    cout<<"输入错误"<<endl;
-                    break;
+                    cout<<"输入错误,重新输入"<<endl;
+                    j--;//让用户重新输入
+                    continue;
                 }
             }
             newarray[this->num+j]=worker;
@@ -145,7 +146,7 @@ void EmployeeManage::addE(){
 void EmployeeManage::fsave(){
     ofstream ofs;
     ofs.open(FILENAME,ios::out);
-    for(int i;i<this->num;i++){
+    for(int i=0;i<this->num;i++){
         ofs<<this->workerArray[i]->name<<"   "
         <<this->workerArray[i]->ID<<"   "
         <<this->workerArray[i]->department<<"   "<<endl;
@@ -195,7 +196,7 @@ void EmployeeManage::showE(){
         return;
     }
     else{
-        for(int i;i<this->num;i++){
+        for(int i=0;i<this->num;i++){
             this->workerArray[i]->show_info();
         }
     }
@@ -406,6 +407,7 @@ void EmployeeManage::clear(){
             this->workerArray[i]==NULL;
         }
         delete[] this->workerArray;
+        this->workerArray=NULL;//忘记置NULL
         this->num=0;
         this->fempty=true;
         cout<<"清空成功"<<endl;
