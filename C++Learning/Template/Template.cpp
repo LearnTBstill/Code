@@ -2,6 +2,206 @@
 #include<string>
 using namespace std;
 
+// template<class T1,class T2>
+// class Person;
+
+// //类外实现
+// template<class T1,class T2>
+// void PrintPerson2(Person<T1,T2> &p){//不用加作用域因为是全局函数
+//     cout<<p.name<<"   类外   "<<p.age<<endl;
+// }
+
+// //类模板与友元
+// template<class T1,class T2>
+// class Person{
+//     //全局函数 类内实现
+//     friend void PrintPerson1(Person<T1,T2> &p){
+//         cout<<p.name<<"   "<<p.age<<endl;
+//     }
+//     //全局函数 类外实现
+//     friend void PrintPerson2<>(Person<T1,T2> &p);
+
+//     public:
+//     Person(T1 name,T2 age){
+//     this->name=name;
+//     this->age=age;
+// }
+//     private:
+//     T1 name;
+//     T2 age;
+// };
+
+// //全局函数在类内实现
+// void test1(){
+//     Person<string,int> p("ggg",123);
+//     PrintPerson1(p); 
+// }
+
+// //全局函数在类外实现
+// void test2(){
+//     Person<string,int> p("ggg",123);
+//     PrintPerson2(p);//出错了
+// }
+
+
+// int main(){
+//     test1();
+//     test2();
+//     return 0;
+// }
+
+
+
+
+// //类模板分文件编写
+// int main(){
+//     Person<string,int> p("aaa",20);
+//     p.show();
+// }
+
+
+
+
+
+// //类模板成员函数类外实现
+// template<class T1,class T2>
+// class Person{
+//     Person(T1 name,T2 age);
+//     void show();
+//     T1 name;
+//     T2 age;
+// };
+
+// //构造函数类外实现
+// template<class T1,class T2>
+// Person<T1,T2>::Person(T1 name,T2 age){//没有<T1,T2>就是普通函数的类外实现了
+//     this->name=name;
+//     this->age=age;
+// }
+
+// template<class T1,class T2>
+// void Person<T1,T2>::show(){
+//     cout<<this->name<<"   "<<this->age<<endl;
+// }
+
+
+
+
+// //类模板与继承
+// template<class T>
+// class Father{
+//     T m;
+// };
+
+// class Son:public Father{//必须指定父类中T的类型，才能继承
+// };
+// class Son:public Father<int>{//直接指定，但是缺少灵活度
+// };
+
+
+
+// //如果想要灵活指定父类T的类型，子类也需要变成类模板
+// template<class T1,class T2>
+// class Son2:public Father<T1>{
+//     T2 p;
+// };
+
+// int main(){
+//     Son2<int,char> s;//父类的T以int继承，子类中的p是char
+// }
+
+
+
+
+// //类模板对象做函数参数
+// template<class T1,class T2>
+// class Person{
+//     public:
+//     Person(T1 name,T2 age){
+//         this->name=name;
+//         this->age=age;
+//     }
+//     void show(){
+//         cout<<this->name<<"  "<<this->age<<endl;
+//     }
+//     T1 name;
+//     T2 age;
+// };
+
+// //1.指定传入参数类型
+// void Print1(Person<string,int> &p){
+//     p.show();
+// }
+
+// //2.参数模板化
+// template<class T1,class T2>
+// void Print2(Person<T1,T2> &p){//函数模板，自动推导了
+//     p.show();
+//     cout<<"T1:"<<typeid(T1).name()<<endl;//string
+//     cout<<"T2:"<<typeid(T2).name()<<endl;//int
+// }
+
+// //3.整个类模板化
+// template<class T>
+// void Print3(T &p){//相当于Person<string,int>变成T
+//     p.show(); 
+// }
+
+
+// void test1(){
+//     Person<string,int> p("张三",21);
+//     Print1(p);
+//     Print2(p);
+//     Print3(p);
+// }
+
+// int main(){
+//     test1();
+//     return 0;
+// }
+
+
+
+
+
+
+
+
+
+// //类模板中成员函数的创建时机
+// class Person1{
+//     public:
+//     void show1(){}
+// };
+// class Person2{
+//     public:
+//     void show2(){}
+// };
+
+// template<class T>
+// class Test{
+//     public:
+//     T a;
+//     void func1(){
+//         a.show1();
+//     }
+//     void func2(){
+//         a.show2();
+//     }
+// };
+
+// int main(){
+//     Test<Person1> C;
+//     C.func1();
+//     // C.func2();
+//     return 0;
+// }
+
+
+
+
+
+
 // //类模板和函数模板区别
 // template<class NameType,class AgeType=int>
 // class Person{
