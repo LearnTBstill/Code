@@ -1,54 +1,53 @@
 #include<iostream>
 #include<string>
 using namespace std;
+template<class T1,class T2>
+class Person;
 
-// template<class T1,class T2>
-// class Person;
+//类外实现
+template<class T1,class T2>
+void PrintPerson2(Person<T1,T2> &p){//不用加作用域因为是全局函数
+    cout<<p.name<<"   类外   "<<p.age<<endl;
+}
 
-// //类外实现
-// template<class T1,class T2>
-// void PrintPerson2(Person<T1,T2> &p){//不用加作用域因为是全局函数
-//     cout<<p.name<<"   类外   "<<p.age<<endl;
-// }
+//类模板与友元
+template<class T1,class T2>
+class Person{
+    //全局函数 类内实现
+    friend void PrintPerson1(Person<T1,T2> &p){
+        cout<<p.name<<"   "<<p.age<<endl;
+    }
+    //全局函数 类外实现
+    friend void PrintPerson2<>(Person<T1,T2> &p);
 
-// //类模板与友元
-// template<class T1,class T2>
-// class Person{
-//     //全局函数 类内实现
-//     friend void PrintPerson1(Person<T1,T2> &p){
-//         cout<<p.name<<"   "<<p.age<<endl;
-//     }
-//     //全局函数 类外实现
-//     friend void PrintPerson2<>(Person<T1,T2> &p);
+    public:
+    Person(T1 name,T2 age){
+    this->name=name;
+    this->age=age;
+}
+    private:
+    T1 name;
+    T2 age;
+};
 
-//     public:
-//     Person(T1 name,T2 age){
-//     this->name=name;
-//     this->age=age;
-// }
-//     private:
-//     T1 name;
-//     T2 age;
-// };
+//全局函数在类内实现
+void test1(){
+    Person<string,int> p("ggg",123);
+    PrintPerson1(p); 
+}
 
-// //全局函数在类内实现
-// void test1(){
-//     Person<string,int> p("ggg",123);
-//     PrintPerson1(p); 
-// }
-
-// //全局函数在类外实现
-// void test2(){
-//     Person<string,int> p("ggg",123);
-//     PrintPerson2(p);//出错了
-// }
+//全局函数在类外实现
+void test2(){
+    Person<string,int> p("ggg",123);
+    PrintPerson2(p);//出错了
+}
 
 
-// int main(){
-//     test1();
-//     test2();
-//     return 0;
-// }
+int main(){
+    test1();
+    test2();
+    return 0;
+}
 
 
 
