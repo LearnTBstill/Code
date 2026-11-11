@@ -24,23 +24,17 @@ int main(){
     test2();
 }
 
+//string²åÈëÉ¾³ı
+int main(){
+    //²åÈë
+    string str="Hello";
+    str.insert(1,"sss");                           //string& insert(int pos,const char*c);
+    cout<<str<<endl;//Hsssello
 
-
-
-
-
-
-// //string²åÈëÉ¾³ı
-// int main(){
-//     //²åÈë
-//     string str="Hello";
-//     str.insert(1,"sss");                           //string& insert(int pos,const char*c);
-//     cout<<str<<endl;//Hsssello
-
-//     //É¾³ı
-//     str.erase(1,6);                                //string& erase(int pos,int n);
-//     cout<<str<<endl;//Ho
-// }
+    //É¾³ı
+    str.erase(1,6);                                //string& erase(int pos,int n);
+    cout<<str<<endl;//Ho
+}
 
 
 
