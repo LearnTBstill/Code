@@ -4,6 +4,45 @@
 #include<string>
 using namespace std;
 
+//vector预留空间
+int main(){
+    vector<int> v;
+    int num=0;//统计开辟次数
+    int *p=NULL;
+    for(int i=0;i<100000;i++){
+        v.push_back(i);
+        if(p!=&v[0]){
+            p=&v[0];
+            num++;
+        }
+    }
+    cout<<num<<endl;//开辟了18次
+
+    vector<int>v2;
+    v2.reserve(100000);
+    num=0;
+    p=NULL;
+    for(int i=0;i<100000;i++){
+        v2.push_back(i);
+        if(p!=&v2[0]){
+            p=&v2[0];
+            num++;
+        }
+    }
+    cout<<num<<endl;//开辟了1次
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // void PrintV(vector<int>& v){
 //     for(vector<int>::iterator ite=v.begin();ite!=v.end();ite++){
 //         cout<<*ite<<"   ";
