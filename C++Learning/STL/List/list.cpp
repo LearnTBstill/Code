@@ -3,14 +3,43 @@
 #include<algorithm>
 using namespace std;
 
-void PrintL(list<int>& l){
-    for(list<int>::const_iterator ite=l.begin();ite!=l.end();ite++){
-        cout<<*ite<<" ";
+class Person{
+    public:
+    Person(string name,int height,int age){
+        this->name=name;
+        this->height=height;
+        this->age=age;
+    }
+    string name;
+    int height;
+    int age;
+};
+
+void PrintL(const list<Person>& l){
+    for(list<Person>::const_iterator ite=l.begin();ite!=l.end();ite++){
+        cout<<(*ite).name<<"   "<<(*ite).height<<"   "<<(*ite).age<<endl;
     }
     cout<<endl;
 }
 
+bool CompareP(Person& p1,Person& p2){
+    if(p1.age!=p2.age){
+        return p1.age<p2.age;
+    }
+    else{
+        return p1.height>p2.height;
+    }
+}
 
+int main(){
+    list<Person>l;
+    Person p1("张",188,22);Person p2("周",150,15);Person p3("刘",188,50);Person p4("焦",170,22);
+    l.push_back(p1);l.push_back(p2);l.push_back(p3);l.push_back(p4);
+
+    //年龄升序，相同则身高降序
+    l.sort(CompareP);
+    PrintL(l);
+}
 
 
 
