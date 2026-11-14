@@ -1,4 +1,77 @@
 #include<list>
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
+void PrintL(list<int>& l){
+    for(list<int>::const_iterator ite=l.begin();ite!=l.end();ite++){
+        cout<<*ite<<" ";
+    }
+    cout<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bool myCompare(int v1,int v2){
+//     return v1>v2;
+// }
+
+// //反转和排序
+// int main(){
+//     list<int> l;
+//     l.push_front(1);l.push_back(2);l.push_front(3);l.push_back(5);l.push_back(4);
+//     PrintL(l);//3 1 2 5 4
+
+//     //反转
+//     l.reverse();
+//     PrintL(l);//4 5 2 1 3
+
+//     //排序
+//     // sort(l.begin(),l.end());//运行会报错
+//     l.sort();
+//     PrintL(l);//1 2 3 4 5
+
+//     //自定义排序规则
+//     l.sort(myCompare);
+//     PrintL(l);//5 4 3 2 1
+// }
+
+
+
+
+
+
+
+// //验证list的迭代器不支持随机访问
+// int main(){
+//     list<int> l;
+//     list<int>::iterator ite=l.begin();
+//     ite++;   ite--;//支持双向
+//     ite=ite+1;
+//     ite=ite+3;//不支持随机访问
+// }
+
+
+
+
+
+
+// int main(){
+//     list<int> l;
+//     l.push_front(10);l.push_back(20);l.push_front(30);l.push_back(30);l.push_back(40);
+//     PrintL(l);//30 10 20 30 40
+
+//     //remove
+//     l.remove(30);
+//     PrintL(l);//10 20 40     
+// }
