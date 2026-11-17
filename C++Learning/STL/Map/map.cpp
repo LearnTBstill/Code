@@ -1,10 +1,84 @@
 #include<iostream>   
 #include<map>
 #include<string>
+#include<vector>
+#include<ctime>
 using namespace std;
 
 //一个案例巩固STL容器
+class Worker{
+    public:
+    int salary;
+    string name;
+};
 
+void createWorker(vector<Worker>& V){
+    string nameSeed="ABCDEFGHIJ";
+    for(int i=0;i<10;i++){
+        Worker W;
+        W.name="员工";
+        W.name+=nameSeed[i];
+        W.salary=rand()%10000+10000;//10000~19999    rand()0~32767
+        V.push_back(W);
+    }
+}
+
+void setGroup(vector<Worker>& V,multimap<int,Worker>& MM){
+    for(vector<Worker>::iterator ite=V.begin();ite!=V.end();ite++){
+        int department=rand()%3;//0 1 2
+        //插入分组
+        MM.insert(make_pair(department,*ite));
+    }
+}
+
+#define CEHUA 0
+#define MEISHU 1
+#define YANFA 2
+
+void showWorker(const multimap<int,Worker>& MM){
+    multimap<int,Worker>::const_iterator CH=MM.find(CEHUA);
+    multimap<int,Worker>::const_iterator MS=MM.find(MEISHU);
+    multimap<int,Worker>::const_iterator YF=MM.find(YANFA);
+    if(CH!=MM.end()){
+        cout<<"策划部门有"<<MM.count(CEHUA)<<"人，分别为："<<endl;
+        for(CH;CH!=MS;CH++){
+            cout<<(*CH).second.name<<"   "<<CH->second.salary<<endl;
+        }
+        cout<<endl;
+    }
+    if(MS!=MM.end()){
+        cout<<"美术部门有"<<MM.count(MEISHU)<<"人，分别为："<<endl;
+        for(MS;MS!=YF;MS++){
+            cout<<(*MS).second.name<<"   "<<MS->second.salary<<endl;
+        }
+        cout<<endl;
+    }
+    if(YF!=MM.end()){
+        cout<<"研发部门有"<<MM.count(YANFA)<<"人，分别为："<<endl;
+        for(YF;YF!=MM.end();YF++){
+            cout<<(*YF).second.name<<"   "<<YF->second.salary<<endl;
+        }
+        cout<<endl;
+    }
+}
+
+int main(){
+    srand((unsigned int)time(NULL));//可以让每回随机的不一样   要加ctime头文件
+    //创建员工
+    vector<Worker> V;
+    createWorker(V);
+    // for(vector<Worker>::iterator ite=V.begin();ite!=V.end();ite++){
+    //     cout<<(*ite).name<<"   "<<ite->salary<<endl;
+    // }
+    // cout<<endl;
+
+    //分组
+    multimap<int,Worker> MM;
+    setGroup(V,MM);
+
+    //分组显示员工
+    showWorker(MM);
+}
 
 
 
