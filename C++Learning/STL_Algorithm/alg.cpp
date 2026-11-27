@@ -4,19 +4,149 @@
 #include<vector>
 using namespace std;
 
-//adjacent_find
-int main(){
+//count_if
+//内置
+class Greater20{
+    public:
+    bool operator()(int val){
+        return val>20;
+    }
+};
+void test1(){
     vector<int> v;
-    v.push_back(0);v.push_back(2);v.push_back(0);v.push_back(3);
-    v.push_back(1);v.push_back(4);v.push_back(3);v.push_back(3);
-    vector<int>::iterator ite=adjacent_find(v.begin(),v.end());
-    if(ite==v.end()){
-        cout<<"未找到相邻重复元素"<<endl;
-    }
-    else{
-        cout<<*ite<endl;
-    }
+    v.push_back(20);v.push_back(20);v.push_back(40);v.push_back(40);v.push_back(30);v.push_back(10);
+    //统计大于20数的个数
+    int num=count_if(v.begin(),v.end(),Greater20());
+    cout<<num<<endl;//3
 }
+
+//自定义
+class Person{
+    public:
+    Person(string name,int age){
+        this->name=name;
+        this->age=age;
+    }
+    bool operator()(const Person& p){
+        return this->age==p.age;
+    }
+    string name;
+    int age;
+};
+class AgeGreater20{
+    public:
+    bool operator()(const Person& p){
+        return p.age>20;
+    }
+};
+void test2(){
+    vector<Person> v;
+    Person p1("张",20);v.push_back(p1);Person p4("唐",20);v.push_back(p4);
+    Person p2("李",50);v.push_back(p2);Person p5("王",10);v.push_back(p5);
+    Person p3("周",10);v.push_back(p3);Person p6("秦",30);v.push_back(p6);
+    //统计大于20岁人员个数
+    int num=count_if(v.begin(),v.end(),AgeGreater20());
+    cout<<num<<endl;//2
+}
+
+int main(){
+    test1();
+    test2();
+}
+
+
+
+
+
+// //count
+// //内置
+// void test1(){
+//     vector<int> v;
+//     v.push_back(10);v.push_back(20);v.push_back(30);v.push_back(20);v.push_back(20);
+//     int num=count(v.begin(),v.end(),20);
+//     cout<<num<<endl;//3
+// }
+
+// //自定义
+// class Person{
+//     public:
+//     Person(string name,int age){
+//         this->name=name;
+//         this->age=age;
+//     }
+//     bool operator==(const Person& p){
+//         return this->age==p.age;
+//     }
+//     string name;
+//     int age;
+// };
+// void test2(){
+//     vector<Person> v;
+//     Person p1("张",20);v.push_back(p1);Person p4("唐",20);v.push_back(p4);
+//     Person p2("李",50);v.push_back(p2);Person p5("王",10);v.push_back(p5);
+//     Person p3("周",40);v.push_back(p3);Person p6("秦",30);v.push_back(p6);
+
+//     Person p("Donad",20);
+//     int num=count(v.begin(),v.end(),p);
+//     cout<<"和Donad同岁的人有:"<<num<<endl;//2
+// }
+
+// int main(){
+//     test1();
+//     test2();
+// }
+
+
+
+
+
+
+
+// //binary_search
+// int main(){
+//     vector<int> v;
+//     for(int i=0;i<10;i++){
+//         v.push_back(i);
+//     }
+//     //是否有9
+//     if(binary_search(v.begin(),v.end(),9)){
+//         cout<<"有"<<endl;//有
+//     }
+//     else{
+//         cout<<"没"<<endl;
+//     }
+
+//     //如果无序呢
+//     v.push_back(2);
+//     if(binary_search(v.begin(),v.end(),9)){
+//         cout<<"有"<<endl;
+//     }
+//     else{
+//         cout<<"没"<<endl;//明显有9但是说没有
+//     }
+// }
+
+
+
+
+
+
+
+
+
+// //adjacent_find
+// int main(){
+//     vector<int> v;
+//     v.push_back(0);v.push_back(2);v.push_back(0);v.push_back(3);
+//     v.push_back(1);v.push_back(4);v.push_back(3);v.push_back(3);
+//     vector<int>::iterator ite=adjacent_find(v.begin(),v.end());
+//     if(ite==v.end()){
+//         cout<<"未找到相邻重复元素"<<endl;
+//     }
+//     else{
+//         cout<<*ite<endl;
+//     }
+// }
 
 
 
